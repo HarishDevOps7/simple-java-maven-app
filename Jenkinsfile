@@ -7,31 +7,31 @@ pipeline {
     }
 
     stages {
-        stage("build") {
+        stage('Build') {
             steps {
-                echo "----------- build started ----------"
+                echo '----------- build started ----------'
                 sh 'mvn clean package -Dmaven.test.skip=true'
-                echo "----------- build completed ----------"
+                echo '----------- build completed ----------'
             }
         }
 
-        stage("test") {
+        stage('Test') {
             steps {
-                echo "----------- unit test started ----------"
+                echo '----------- unit test started ----------'
                 sh 'mvn test'
-                echo "----------- unit test completed ----------"
+                echo '----------- unit test completed ----------'
             }
         }
 
-        stage('SonarQube Code Analysis') {
+        stage('SonarCloud Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh '''
-                        mvn org.sonarsource.scanner.maven:sonar-maven-plugin:5.8.0.7211:sonar \
+                        /opt/maven/bin/mvn \
+                          org.sonarsource.scanner.maven:sonar-maven-plugin:5.8.0.7211:sonar \
                           -Dsonar.organization=sonarqubepractice-c07 \
                           -Dsonar.projectKey=saidemy01-keyy_TestProject \
-                          -Dsonar.host.url=https://sonarcloud.io \
-                          -e
+                          -Dsonar.host.url=https://sonarcloud.io
                     '''
                 }
             }
