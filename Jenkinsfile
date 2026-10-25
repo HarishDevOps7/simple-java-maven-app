@@ -38,10 +38,10 @@ pipeline {
             }                                 
 
             steps {                           
-                withSonarQubeEnv('SonarQube') {  
                                               
-                    sh "${scannerHome}/bin/sonar-scanner"  
-                                              
+                     withSonarQubeEnv('SonarQube') {
+    sh '/opt/maven/bin/mvn sonar:sonar'
+}                         
                 }                             
             }                                 
         }                                     
